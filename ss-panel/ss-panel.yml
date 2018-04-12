@@ -1,0 +1,35 @@
+---
+# 设置批量管理节点
+- hosts: zabbixserver
+  # 远程访问的用户
+  remote_user: root
+  # 变量
+  vars:
+
+    # 配置文件目录
+    repodir: /etc/yum.repos.d/
+    workdir: /var/tmps/
+    
+
+  tasks:
+    - name: Create local directory to work from
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
+
+    - name: clone nginx repo
+      get_url: https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo url= dest={{repodir}}
+
+
+    - name: Install epel-release
+      yum: pkg=epel-release state=installed
+
+    - name: install php repo
+      command: rpm -i http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  creates={{repodir}}remi.repo warn=False
+
+    - name: install yum-utils
+      yum: pkg=yum-utils state=installed
+      
+    - name: change php version
+      shell: yum-config-manager --enable remi-php72 >> set.log  chdir={{workdir}} creates={{workdir}}set.log
+
+
+
