@@ -63,3 +63,21 @@
         - { section: "www", option: "user", value: 'nginx' }
         - { section: "www", option: "group", value: 'nginx' }
         - { section: "www", option: "listen", value: '/var/run/php-fpm/php-fpm.sock' }
+        - { section: "www", option: "listen.owner", value: 'nginx' }
+        - { section: "www", option: "listen.group", value: 'nginx' }
+        - { section: "www", option: "listen.mode", value: '0660' }
+        - { section: "www", option: "access.log", value: '/var/log/php-fpm/$pool.access.log' }
+        - { section: "www", option: "access.format", value: '"%R - %u %t \"%m %r%Q%q\" %s %f %{mili}d %{kilo}M %C%%"' }
+        - { section: "www", option: "slowlog", value: '/var/log/php-fpm/www-slow.log' }
+        - { section: "www", option: "request_slowlog_timeout", value: '3' }
+        - { section: "www", option: "php_value[session.save_handler]", value: 'files' }
+        - { section: "www", option: "php_value[session.save_path]", value: '/var/lib/php/session' }
+        - { section: "www", option: "php_value[session.wsdl_cache_dir]", value: '/var/lib/php/wsdlcache' }
+        
+        
+        
+    - name: mkdir session
+      file: path=/var/lib/php/session state=directory owner=nginx group=nginx mode=0751
+      
+    - name: mkdir wsdlcache
+      file: path=/var/lib/php/wsdlcache state=directory owner=nginx group=nginx mode=0751
