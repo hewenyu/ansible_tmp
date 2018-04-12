@@ -1,7 +1,7 @@
 ### zabbix_server安装(centos7)
 
 ```shell
-git clone git://git.coding.net/yueban_hwy/ansible.git
+git clone git@github.com:hewenyu/ansible_tmp.git
 cd ansible
 ansible-playbook zabbix_server.yml
 ansible zabbixserver -m raw -a 'zcat /usr/share/doc/zabbix-server-mysql-3.4.8/create.sql.gz |mysql -uroot zabbix'
