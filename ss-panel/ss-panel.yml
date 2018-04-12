@@ -84,7 +84,10 @@
       
     - name: mkdir wsdlcache
       file: path=/var/lib/php/wsdlcache state=directory owner=nginx group=nginx mode=0751
-
+      
+    - name: Create nginx.conf
+      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
+      
     - name: Create enable-php
       get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/enable-php.conf dest=/etc/nginx/enable-php.conf owner=root group=root mode=0644  
     
