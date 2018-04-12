@@ -38,6 +38,16 @@
         - php-fpm 
         - php-mysql 
         - php-bcmath 
-        - php-gd 
-        - php-mbstring
-
+        - php-gd
+        - php-cli
+        - php-common
+        - php-mbstring 
+        - php-pdo 
+        - php-pear 
+        - php-pecl-msgpack 
+        - php-process 
+        - php-xml 
+        - gd-last 
+        - php-json 
+        - php-pecl-memcached 
+        - php-pecl-zip
