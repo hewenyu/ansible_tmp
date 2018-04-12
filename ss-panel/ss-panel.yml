@@ -30,6 +30,14 @@
       
     - name: change php version
       shell: yum-config-manager --enable remi-php72 >> set.log  chdir={{workdir}} creates={{workdir}}set.log
-
-
+      
+    - name: install php_version
+      yum: name={{item}} state=installed
+      with_items:
+        - php
+        - php-fpm 
+        - php-mysql 
+        - php-bcmath 
+        - php-gd 
+        - php-mbstring
 
