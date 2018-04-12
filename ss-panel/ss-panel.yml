@@ -51,3 +51,15 @@
         - php-json 
         - php-pecl-memcached 
         - php-pecl-zip
+
+        
+    - name: change php-fpm
+      ini_file:
+        path: /etc/php-fpm.d/www.conf
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+      with_items:
+        - { section: "www", option: "user", value: '"nginx"' }
+        - { section: "www", option: "group", value: '"nginx"' }
+        - { section: "www", option: "listen", value: '"/var/run/php-fpm/php-fpm.sock"' }
