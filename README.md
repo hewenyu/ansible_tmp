@@ -2,7 +2,7 @@
 
 ```shell
 git clone https://github.com/hewenyu/ansible_tmp.git
-cd ansible_tmp
+cd ./ansible_tmp
 # 如果有防火墙的话先关掉
 ansible zabbixserver -m command -a 'yum remove firewalld -y warn=False'
 ansible-playbook zabbix_server.yml
@@ -22,3 +22,12 @@ define('ZBX_FONTPATH',                          realpath('fonts')); // where to 
 define('ZBX_GRAPH_FONT_NAME',           'simkai'); // font file name
 ```
 
+### lnmp 安装 (centos7 php 7.2) 
+
+```shell
+git clone https://github.com/hewenyu/ansible_tmp.git
+cd ./ansible_tmp/nginx-php
+# 如果有防火墙的话先关掉
+ansible node -m command -a 'yum remove firewalld -y warn=False'
+ansible-playbook lnmp.yml
+```
