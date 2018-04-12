@@ -1,6 +1,6 @@
 ---
 # 设置批量管理节点
-- hosts: zabbixserver
+- hosts: node
   # 远程访问的用户
   remote_user: root
   # 变量
