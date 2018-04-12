@@ -76,15 +76,19 @@
         - { section: "www", option: "php_value[session.save_handler]", value: 'files' }
         - { section: "www", option: "php_value[session.save_path]", value: '/var/lib/php/session' }
         - { section: "www", option: "php_value[session.wsdl_cache_dir]", value: '/var/lib/php/wsdlcache' }
-        
-        
-        
+
     - name: mkdir session
       file: path=/var/lib/php/session state=directory owner=nginx group=nginx mode=0751
       
     - name: mkdir wsdlcache
       file: path=/var/lib/php/wsdlcache state=directory owner=nginx group=nginx mode=0751
-      
+
+    - name: clear_def
+      shell: rm -rf  /etc/nginx/conf.d/default.conf >> default.log  chdir={{workdir}} creates={{workdir}}default.log
+    
+    - name: clear_nginx
+      shell: rm -rf  /etc/nginx/nginx.conf >> nginx.log  chdir={{workdir}} creates={{workdir}}nginx.log
+     
     - name: copy config
       get_url: url={{item.url}} dest={{item.dest}} owner={{item.owner}}  group={{item.group}}  mode=0644
       with_items:
