@@ -3,6 +3,7 @@
 ```shell
 git clone https://github.com/hewenyu/ansible_tmp.git
 cd ansible_tmp
+ansible zabbixserver -m command -a 'yum remove firewalld -y warn=False'
 ansible-playbook zabbix_server.yml
 ansible zabbixserver -m raw -a 'zcat /usr/share/doc/zabbix-server-mysql-3.4.8/create.sql.gz |mysql -uroot zabbix'
 
