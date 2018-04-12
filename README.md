@@ -30,5 +30,8 @@ cd ./ansible_tmp/nginx-php
 # 如果有防火墙的话先关掉
 ansible node -m command -a 'yum remove firewalld -y warn=False'
 ansible-playbook lnmp.yml
+# 保险起见
+ansible node -m command -a 'systemctl restart nginx'
+ansible node -m command -a 'systemctl restart php-fpm'
 ```
 然后可以打开http://{host}/info.php
