@@ -18,7 +18,9 @@
     - name: clone nginx repo
       get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo  dest={{repodir}}
 
-
+    - name: install nginx
+      yum: pkg=nginx state=installed
+    
     - name: Install epel-release
       yum: pkg=epel-release state=installed
 
