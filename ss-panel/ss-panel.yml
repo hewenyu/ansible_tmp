@@ -16,7 +16,7 @@
       file: path={{workdir}} state=directory owner=root group=root mode=0751
 
     - name: clone nginx repo
-      get_url: https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo url= dest={{repodir}}
+      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo  dest={{repodir}}
 
 
     - name: Install epel-release
