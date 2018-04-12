@@ -85,18 +85,14 @@
     - name: mkdir wsdlcache
       file: path=/var/lib/php/wsdlcache state=directory owner=nginx group=nginx mode=0751
       
-    - name: Create nginx.conf
-      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
-      
-    - name: Create enable-php
-      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/enable-php.conf dest=/etc/nginx/enable-php.conf owner=root group=root mode=0644  
-    
-    - name: Create default.conf
-      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/default.conf dest=/etc/nginx/conf.d/default.conf owner=root group=root mode=0644
-      
-    - name: Create info.php
-      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/info.php dest=/usr/share/nginx/html/info.php owner=nginx group=nginx mode=0644
-      
+    - name: copy config
+      get_url: url={{item.url}} dest={{item.dest}} owner={{item.url}}  group={{item.group}}  mode=0644
+      with_items:
+      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.conf", dest: "/etc/nginx/nginx.conf", owner: "root", group : "root"}
+      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/enable-php.conf", dest: "/etc/nginx/enable-php.conf", owner: "root", group : "root"}
+      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/default.conf", dest: "/etc/nginx/conf.d/default.conf", owner: "root", group : "root"}
+      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/info.php", dest: "/usr/share/nginx/html/info.php", owner: "nginx", group : "nginx"}
+
     - name: start php-fpm
       service: name=php-fpm state=started enabled=yes
       
