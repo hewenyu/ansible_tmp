@@ -1,0 +1,85 @@
+---
+# 设置批量管理节点
+- hosts: zabbixserver
+  # 远程访问的用户
+  remote_user: root
+  # 变量
+  vars:
+
+    # 配置文件目录
+    workdir: /root/test/
+    
+
+  tasks:
+    - name: Create local directory to work from
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
+
+    - name: Create create_db.sh
+      get_url: url=https://coding.net/u/yueban_hwy/p/ansible/git/raw/master/create_db.sh dest={{workdir}}
+
+    - name: install zabbix-repo
+      command: rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm  creates=/etc/yum.repos.d/zabbix.repo
+      
+    - name: install mysql-repo
+      command: rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  creates=/etc/yum.repos.d/mysql-community.repo
+
+    - name: Install zabbix-server-mysql
+      yum: pkg=zabbix-server-mysql state=installed
+
+    - name: Install zabbix-web-mysql
+      yum: pkg=zabbix-web-mysql state=installed
+
+    - name: Install zabbix_get
+      yum: pkg=zabbix-get state=installed
+
+    - name: chage to Asia/Shanghai timezone
+      ini_file:
+        path: /etc/php.ini
+        section: Date
+        option: date.timezone
+        value: Asia/Shanghai
+ 
+    - name: disable mysql_5.7
+      ini_file:
+        path: /etc/yum.repos.d/mysql-community.repo
+        section: mysql57-community
+        option: enabled
+        value: 0
+        
+    - name: enable mysql_5.6
+      ini_file:
+        path: /etc/yum.repos.d/mysql-community.repo
+        section: mysql56-community
+        option: enabled
+        value: 1
+ 
+ 
+    - name: Install mysql
+      yum: pkg=mysql-community-server state=installed
+
+
+    - name: change dbhost
+      lineinfile:
+        dest: /etc/zabbix/zabbix_server.conf
+        regexp: '^DBHost'
+        insertafter: '^# DBHost='
+        line: 'DBHost=localhost'
+ 
+    - name: change dbpassword
+      lineinfile:
+        dest: /etc/zabbix/zabbix_server.conf
+        regexp: '^DBPassword'
+        insertafter: '^# DBPassword='
+        line: 'DBPassword=zabbix'
+       
+    - name: start zabbix-server
+      service: name=zabbix-server state=started enabled=yes
+
+    - name: start httpd
+      service: name=httpd state=started enabled=yes
+
+    - name: start mysql
+      service: name=mysqld state=started enabled=yes
+      
+    - name: create database
+      script: create_db.sh  chdir={{workdir}}  creates={{workdir}}/ready.hi
