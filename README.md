@@ -31,3 +31,4 @@ cd ./ansible_tmp/nginx-php
 ansible node -m command -a 'yum remove firewalld -y warn=False'
 ansible-playbook lnmp.yml
 ```
+然后可以打开http://{host}/info.php
