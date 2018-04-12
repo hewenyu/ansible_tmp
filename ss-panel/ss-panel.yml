@@ -86,7 +86,7 @@
       file: path=/var/lib/php/wsdlcache state=directory owner=nginx group=nginx mode=0751
       
     - name: copy config
-      get_url: url={{item.url}} dest={{item.dest}} owner={{item.url}}  group={{item.group}}  mode=0644
+      get_url: url={{item.url}} dest={{item.dest}} owner={{item.owner}}  group={{item.group}}  mode=0644
       with_items:
       - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.conf", dest: "/etc/nginx/nginx.conf", owner: "root", group : "root"}
       - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/enable-php.conf", dest: "/etc/nginx/enable-php.conf", owner: "root", group : "root"}
