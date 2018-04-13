@@ -29,6 +29,9 @@
     - name: Install zabbix_get
       yum: pkg=zabbix-get state=installed
 
+    - name: Install zabbix-agent
+      yum: pkg=zabbix-agent state=installed
+
     - name: chage to Asia/Shanghai timezone
       ini_file:
         path: /etc/php.ini
@@ -50,8 +53,12 @@
         insertafter: '^# DBPassword='
         line: 'DBPassword=zabbix'
        
-    - name: start zabbix-server
-      service: name=zabbix-server state=started enabled=yes
+    - name: start zabbix
+      service: name={{item.name}} state=started enabled=yes
+      with_items:
+      - { name: "zabbix-server"}
+      - { name: "httpd"}
+      - { name: "zabbix-agent"}
 
     - name: start httpd
       service: name=httpd state=started enabled=yes
