@@ -37,4 +37,4 @@
      - php-pecl-zip
      
  - name: start php-fpm
-    service: name=php-fpm state=started enabled=yes
+   service: name=php-fpm state=started enabled=yes
