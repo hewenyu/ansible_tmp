@@ -12,8 +12,8 @@
 
   tasks:
     - include: base_task/nginx.yml
-    #- include: base_task/php.yml
-        
+    - include: base_task/php.yml
+
       # 修改php-fpm参数
     - name: change php-fpm
       ini_file:
