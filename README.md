@@ -12,6 +12,11 @@ ansible zabbixserver -m raw -a 'zcat /usr/share/doc/zabbix-server-mysql-3.4.8/cr
 ```
 然后可以打开http://{host}/zabbix
 
+
+```shell
+# 在通过web 安装完成后,面板出现后,启用server 的agent的数据收集
+ansible zabbixserver -u root -m shell -a 'bash post.sh  chdir=/root/test/'
+```
 如果zabbix要使用用中文
 * 选项设置修改成中文
 * 将字体文 simkai.ttf件放入 /usr/share/zabbix/fonts/
