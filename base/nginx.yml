@@ -1,0 +1,18 @@
+---
+# 设置批量管理节点
+- hosts: node
+  # 远程访问的用户
+  remote_user: root
+  # 变量
+  vars:
+
+    # 配置文件目录
+    repodir: /etc/yum.repos.d/
+
+  tasks:
+
+    - name: clone nginx repo
+      get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo  dest={{repodir}}
+
+    - name: install nginx
+      yum: pkg=nginx state=installed
