@@ -1,0 +1,24 @@
+---
+# base_task/mysql.yml
+ - name: install mysql-repo
+   command: rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  creates=/etc/yum.repos.d/mysql-community.repo warn=False
+ 
+ - name: disable mysql_5.7
+   ini_file:
+     path: /etc/yum.repos.d/mysql-community.repo
+     section: mysql57-community
+     option: enabled
+     value: 0
+ 
+ - name: enable mysql_5.6
+   ini_file:
+     path: /etc/yum.repos.d/mysql-community.repo
+     section: mysql56-community
+     option: enabled
+     value: 1
+     
+ - name: Install mysql
+   yum: pkg=mysql-community-server state=installed
+   
+ - name: start mysql
+   service: name=mysqld state=started enabled=yes
