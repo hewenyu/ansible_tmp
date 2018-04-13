@@ -1,0 +1,40 @@
+---
+# base_task/php.yml
+ - name: Create local directory to work from
+   file: path={{workdir}} state=directory owner=root group=root mode=0751
+ 
+ - name: Install epel-release
+   yum: pkg=epel-release state=installed
+ 
+ - name: install php repo
+   command: rpm -i http://rpms.famillecollet.com/enterprise/remi-release-7.rpm  creates={{repodir}}remi.repo warn=False
+ 
+ - name: install yum-utils
+   yum: pkg=yum-utils state=installed
+   
+ - name: change php version
+   shell: yum-config-manager --enable remi-php72 >> set.log  chdir={{workdir}} creates={{workdir}}set.log
+   
+ - name: install php_version
+   yum: name={{item}} state=installed
+   with_items:
+     - php
+     - php-fpm 
+     - php-mysql 
+     - php-bcmath 
+     - php-gd
+     - php-cli
+     - php-common
+     - php-mbstring 
+     - php-pdo 
+     - php-pear 
+     - php-pecl-msgpack 
+     - php-process 
+     - php-xml 
+     - gd-last 
+     - php-json 
+     - php-pecl-memcached 
+     - php-pecl-zip
+     
+  - name: start php-fpm
+    service: name=php-fpm state=started enabled=yes

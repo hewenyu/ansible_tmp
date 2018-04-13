@@ -1,0 +1,10 @@
+---
+# base_task/nginx.yml
+ - name: clone nginx repo
+   get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/nginx-php/nginx.repo  dest={{repodir}}
+ 
+ - name: install nginx
+   yum: pkg=nginx state=installed
+ 
+ - name: start nginx
+   service: name=nginx state=started enabled=yes
