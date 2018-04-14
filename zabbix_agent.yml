@@ -9,7 +9,7 @@
     # 配置文件目录
     workdir: /root/test/
     master_ip: 8.9.37.161
-    master_url: http://8.9.37.161/
+    master_url: http://8.9.37.161/zabbix/
     login_user: Admin
     login_password: zabbix
     
