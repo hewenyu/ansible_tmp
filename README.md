@@ -39,11 +39,14 @@ ansible zabbixagent -m command -a 'yum remove firewalld -y warn=False'
 # tmp_host
 [zabbixserver]
 zabbix_server ansible_ssh_host=192.168.1.20
+
 [zabbixagent]
 web ansible_ssh_host=192.168.2.20
+
 [zabbix:children]
 zabbixserver
 zabbixagent
+
 [zabbix:vars]
 server_ip=192.168.1.20
 server_url=http://192.168.1.20/zabbix/
