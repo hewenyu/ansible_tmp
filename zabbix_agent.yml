@@ -31,8 +31,8 @@
     #- debug: var=host_ip.stdout_lines
     #- debug: var=host_ip["stdout"]
     #- debug: var=hostname["stdout"]
-    - debug: var=http://"{{ master_ip }}"
-    - debug: var=http://{{ master_ip }}
+    - debug: var='http://"{{ master_ip }}'
+    - debug: var='http://{{ master_ip }}'
 
     - name: install zabbix-repo
       command: rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm  creates=/etc/yum.repos.d/zabbix.repo warn=False
