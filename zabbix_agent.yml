@@ -48,7 +48,7 @@
       lineinfile:
         dest: /etc/zabbix/zabbix_agentd.conf
         regexp: '^Server='
-        line: 'Server={{host_ip['stdout']}}'
+        line: 'Server={{ host_ip['stdout'] }}'
     #
     #   
     #- name: start zabbix-agent
