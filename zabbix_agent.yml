@@ -31,6 +31,7 @@
     #- debug: var=host_ip.stdout_lines
     #- debug: var=host_ip["stdout"]
     #- debug: var=hostname["stdout"]
+    - debug: var=http://"{{ master_ip }}"
       
 
     - name: install zabbix-repo
