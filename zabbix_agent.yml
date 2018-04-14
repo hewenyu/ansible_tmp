@@ -20,7 +20,7 @@
       ignore_errors: True
       
     - name: testget
-      command: echo {{host_ip}} > host_ip.log  chdir={{workdir}} creates={{workdir}}/host_ip.log
+      shell: echo {{host_ip}} > host_ip.log  chdir={{workdir}} creates={{workdir}}/host_ip.log
 
     #- name: Create create_db.sh
     #  get_url: url={{item.url}} dest={{workdir}}
