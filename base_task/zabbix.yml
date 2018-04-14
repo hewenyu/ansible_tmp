@@ -13,7 +13,7 @@
     description: "{{ hostname }}"
     
     host_groups:
-      - Linux server
+      - Linux servers
     #  - Example group2
     link_templates:
       - Template OS Linux
