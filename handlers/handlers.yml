@@ -5,3 +5,6 @@
    
  - name: restart php-fpm
    service: name=php-fpm state=restarted
+   
+ - name: restart zabbix-agent
+   service: name=zabbix-agent state=restarted
