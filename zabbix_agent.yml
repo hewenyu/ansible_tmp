@@ -8,12 +8,6 @@
 
     # 配置文件目录
     workdir: /root/test/
-    master_ip: 8.9.37.161
-    master_url: http://8.9.37.161/zabbix/
-    login_user: Admin
-    login_password: zabbix
-    
-    
 
   tasks:
     - name: install zabbix-repo
@@ -41,8 +35,8 @@
         regexp: "{{item.regexp}}"
         line: "{{item.line}}"
       with_items:
-      - { regexp: '^Server=' , line: 'Server={{master_ip}}' }
-      - { regexp: '^ServerActive=' , line: 'ServerActive={{master_ip}}' }
+      - { regexp: '^Server=' , line: 'Server={{server_ip}}' }
+      - { regexp: '^ServerActive=' , line: 'ServerActive={{server_ip}}' }
       - { regexp: '^Hostname=' , line: 'Hostname={{inventory_hostname}}' }
       notify:
         - restart zabbix-agent
