@@ -20,6 +20,7 @@
       ignore_errors: True
     
     - debug: var=host_ip.stdout_lines
+    - debug: var=host_ip['stdout']
       
     #- name: testget
     #  shell: echo {{host_ip.stdout}} > host_ip.log  chdir={{workdir}} creates={{workdir}}/host_ip.log
