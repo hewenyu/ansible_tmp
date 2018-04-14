@@ -4,7 +4,7 @@
   local_action:
     module: zabbix_host
     # 基本信息
-    server_url: "{{ master_url }}"
+    server_url: '"{{ master_url }}"'
     login_user: "{{ login_user }}"
     login_password: "{{ login_password }}"
     
