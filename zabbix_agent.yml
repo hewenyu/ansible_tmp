@@ -9,6 +9,8 @@
     # 配置文件目录
     workdir: /root/test/
     master_ip: 8.9.37.161
+    login_user: Admin
+    login_password: zabbix
     
 
   tasks:
@@ -62,7 +64,7 @@
       notify:
         - restart zabbix-agent
 
-    
+    - include: base_task/zabbix.yml
     
   handlers:
     - include: handlers/handlers.yml
