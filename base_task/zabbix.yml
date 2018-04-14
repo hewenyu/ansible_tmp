@@ -8,9 +8,9 @@
     login_user: "{{ login_user }}"
     login_password: "{{ login_password }}"
     
-    host_name: "{{ hostname }}"
-    visible_name: "{{ hostname }}"
-    description: "{{ hostname }}"
+    host_name: "{{hostname}}"
+    visible_name: ""
+    description: ""
     
     host_groups:
       - Linux servers
@@ -38,7 +38,7 @@
       - type: 1
         main: 1
         useip: 1
-        ip: "{{ host_ip['stdout'] }}"
+        ip: "{{host_ip['stdout']}}"
         dns: ""
         port: 10050
     #proxy: a.zabbix.proxy
