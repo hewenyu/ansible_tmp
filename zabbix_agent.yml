@@ -1,0 +1,54 @@
+---
+# 设置批量管理节点
+- hosts: zabbixagent
+  # 远程访问的用户
+  remote_user: root
+  # 变量
+  vars:
+
+    # 配置文件目录
+    workdir: /root/test/
+    
+
+  tasks:
+    - name: Create local directory to work from
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
+      
+    - name: get host_ip
+      shell: ifconfig | grep 'inet'| grep -v '127.0.0.1' |grep -v inet6|awk '{ print $2}'|head -1
+      register: host_ip
+      
+    - name: testget
+      command: echo{{host_ip}}
+
+    #- name: Create create_db.sh
+    #  get_url: url={{item.url}} dest={{workdir}}
+    #  with_items:
+    #  - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/create_db.sh"}
+    #
+    #
+    #- name: install zabbix-repo
+    #  command: rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm  creates=/etc/yum.repos.d/zabbix.repo warn=False
+    #  
+    #  
+    #- name: Install zabbix_sender
+    #  yum: pkg=zabbix-sender state=installed
+    #  
+    #- name: Install zabbix_get
+    #  yum: pkg=zabbix-get state=installed
+    #
+    #- name: Install zabbix-agent
+    #  yum: pkg=zabbix-agent state=installed
+    #
+    #- name: change dbhost
+    #  lineinfile:
+    #    dest: /etc/zabbix/zabbix_agentd.conf
+    #    regexp: '^SELINUX='
+    #    line: 'SELINUX=enforcing'
+    #
+    #   
+    #- name: start zabbix-agent
+    #  service: name={{item.name}} state=started enabled=yes
+    #  with_items:
+    #  - { name: "zabbix-agent"}
+    #
