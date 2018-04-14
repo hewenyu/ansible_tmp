@@ -35,10 +35,21 @@ cd ./ansible_tmp
 ansible zabbixagent -m command -a 'yum remove firewalld -y warn=False'
 # 这个需要安装一个zabbix的模块 pip install zabbix-api
 # 而且host需要预先配置好一些环境变量 例子如下
-#
-
-#[zabbixagent]
-#www.host2.com ansible_ssh_host=192.168.100.65
+#######################################################
+# tmp_host
+[zabbixserver]
+zabbix_server ansible_ssh_host=192.168.1.20
+[zabbixagent]
+web ansible_ssh_host=192.168.2.20
+[zabbix:children]
+zabbixserver
+zabbixagent
+[zabbix:vars]
+server_ip=192.168.1.20
+server_url=http://192.168.1.20/zabbix/
+login_user=Admin
+login_password=zabbix
+#######################################################
 
 ansible-playbook zabbix_agent.yml
 ```
