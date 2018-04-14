@@ -15,11 +15,12 @@
       file: path={{workdir}} state=directory owner=root group=root mode=0751
       
     - name: get host_ip
-      shell: "ifconfig | grep 'inet'| grep -v '127.0.0.1' |grep -v inet6|awk '{ print $2}'|head -1"
+      raw : ifconfig | grep 'inet'| grep -v '127.0.0.1' |grep -v inet6|awk '{ print $2}'|head -1
       register: host_ip
+      ignore_errors: True
       
     - name: testget
-      command: echo{{host_ip}}
+      command: echo {{host_ip}}
 
     #- name: Create create_db.sh
     #  get_url: url={{item.url}} dest={{workdir}}
