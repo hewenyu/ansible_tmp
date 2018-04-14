@@ -43,11 +43,11 @@
     #- name: Install zabbix-agent
     #  yum: pkg=zabbix-agent state=installed
     #
-    #- name: change dbhost
-    #  lineinfile:
-    #    dest: /etc/zabbix/zabbix_agentd.conf
-    #    regexp: '^SELINUX='
-    #    line: 'SELINUX=enforcing'
+    - name: change dbhost
+      lineinfile:
+        dest: /etc/zabbix/zabbix_agentd.conf
+        regexp: '^Server='
+        line: 'Server={{host_ip.stdout_lines}}'
     #
     #   
     #- name: start zabbix-agent
