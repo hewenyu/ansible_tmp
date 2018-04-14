@@ -8,6 +8,7 @@
 
     # 配置文件目录
     workdir: /root/test/
+    master_ip: 8.9.37.161
     
 
   tasks:
@@ -55,8 +56,8 @@
         regexp: "{{item.regexp}}"
         line: "{{item.line}}"
       with_items:
-      - { regexp: '^Server=' , line: 'Server={{host_ip["stdout"]}}' }
-      - { regexp: '^ServerActive=' , line: 'ServerActive={{host_ip["stdout"]}}' }
+      - { regexp: '^Server=' , line: 'Server={{ master_ip }}' }
+      - { regexp: '^ServerActive=' , line: 'ServerActive={{ master_ip }}' }
       - { regexp: '^Hostname=' , line: 'Hostname={{hostname["stdout"]}}' }
       notify:
         - restart zabbix-agent
