@@ -27,6 +27,18 @@ define('ZBX_FONTPATH',                          realpath('fonts')); // where to 
 define('ZBX_GRAPH_FONT_NAME',           'simkai'); // font file name
 ```
 
+### zabbix_agent安装(centos7)
+```shell
+git clone https://github.com/hewenyu/ansible_tmp.git
+cd ./ansible_tmp
+# 如果有防火墙的话先关掉
+ansible zabbixagent -m command -a 'yum remove firewalld -y warn=False'
+ansible-playbook zabbix_agent.yml
+
+# 后续待完善，我这master_ip 是写死的请按照需求修改
+```
+
+
 ### lnmp 安装 (centos7 php 7.2) 
 
 ```shell
