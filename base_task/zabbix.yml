@@ -8,8 +8,8 @@
     login_user: "{{ login_user }}"
     login_password: "{{ login_password }}"
     
-    host_name: '{{hostname["stdout"]}}'
-    visible_name: '{{hostname["stdout"]}}'
+    host_name: "{{inventory_hostname}}"
+    visible_name: "{{inventory_hostname}}"
     description: ""
     
     host_groups:
@@ -38,7 +38,7 @@
       - type: 1
         main: 1
         useip: 1
-        ip: "{{host_ip['stdout']}}"
+        ip: "{{ansible_ssh_host}}"
         dns: ""
         port: 10050
     #proxy: a.zabbix.proxy

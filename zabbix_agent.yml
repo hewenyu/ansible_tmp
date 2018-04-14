@@ -31,8 +31,8 @@
       ignore_errors: True
     
     #- debug: var=host_ip.stdout_lines
-    #- debug: var=host_ip["stdout"]
-    #- debug: var=hostname["stdout"]
+    - debug: var=host_ip["stdout"]
+    - debug: var=hostname["stdout"]
     - debug: var='"{{ master_ip }}"'
     - debug: var='"{{ master_url }}"'
 
@@ -50,7 +50,7 @@
       yum: pkg=zabbix-agent state=installed
       
       # ifconfig 命令必须的
-    - name: Install zabbix-agent
+    - name: Install net-tools
       yum: pkg=net-tools state=installed
       
       # 启动zabbix-agent
