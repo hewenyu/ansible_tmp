@@ -49,6 +49,10 @@
     - name: Install zabbix-agent
       yum: pkg=zabbix-agent state=installed
       
+      # ifconfig 命令必须的
+    - name: Install zabbix-agent
+      yum: pkg=net-tools state=installed
+      
       # 启动zabbix-agent
     - name: start zabbix-agent
       service: name={{item.name}} state=started enabled=yes
