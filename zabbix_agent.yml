@@ -16,27 +16,6 @@
     
 
   tasks:
-    - name: Create local directory to work from
-      file: path={{workdir}} state=directory owner=root group=root mode=0751
-      
-      # 注册变量
-    - name: get host_ip
-      raw : ifconfig | grep 'inet'| grep -v '127.0.0.1' |grep -v inet6|awk '{ print $2}'|head -1
-      register: host_ip
-      ignore_errors: True
-      
-    - name: get hostname
-      command : hostname
-      register: hostname
-      ignore_errors: True
-    
-    #- debug: var=host_ip.stdout_lines
-    - debug: var=host_ip["stdout"]
-    - debug: var=hostname["stdout"]
-    - debug: var='"{{ master_ip }}"'
-    - debug: var='"{{ master_url }}"'
-
-
     - name: install zabbix-repo
       command: rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm  creates=/etc/yum.repos.d/zabbix.repo warn=False
 
@@ -48,10 +27,6 @@
     
     - name: Install zabbix-agent
       yum: pkg=zabbix-agent state=installed
-      
-      # ifconfig 命令必须的
-    - name: Install net-tools
-      yum: pkg=net-tools state=installed
       
       # 启动zabbix-agent
     - name: start zabbix-agent
@@ -66,9 +41,9 @@
         regexp: "{{item.regexp}}"
         line: "{{item.line}}"
       with_items:
-      - { regexp: '^Server=' , line: 'Server={{ master_ip }}' }
-      - { regexp: '^ServerActive=' , line: 'ServerActive={{ master_ip }}' }
-      - { regexp: '^Hostname=' , line: 'Hostname={{hostname["stdout"]}}' }
+      - { regexp: '^Server=' , line: 'Server={{master_ip}}' }
+      - { regexp: '^ServerActive=' , line: 'ServerActive={{master_ip}}' }
+      - { regexp: '^Hostname=' , line: 'Hostname={{inventory_hostname}}' }
       notify:
         - restart zabbix-agent
 
