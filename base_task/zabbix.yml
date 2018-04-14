@@ -8,8 +8,8 @@
     login_user: "{{ login_user }}"
     login_password: "{{ login_password }}"
     
-    host_name: "{{hostname}}"
-    visible_name: ""
+    host_name: '{{hostname["stdout"]}}'
+    visible_name: '{{hostname["stdout"]}}'
     description: ""
     
     host_groups:
