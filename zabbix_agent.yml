@@ -18,9 +18,15 @@
       raw : ifconfig | grep 'inet'| grep -v '127.0.0.1' |grep -v inet6|awk '{ print $2}'|head -1
       register: host_ip
       ignore_errors: True
+      
+    - name: get hostname
+      command : hostname
+      register: hostname
+      ignore_errors: True
     
     #- debug: var=host_ip.stdout_lines
     - debug: var=host_ip["stdout"]
+    - debug: var=hostname["stdout"]
       
     #- name: testget
     #  shell: echo {{host_ip.stdout}} > host_ip.log  chdir={{workdir}} creates={{workdir}}/host_ip.log
@@ -47,8 +53,19 @@
     - name: change dbhost
       lineinfile:
         dest: /etc/zabbix/zabbix_agentd.conf
-        regexp: '^Server='
-        line: 'Server={{host_ip["stdout"]}}'
+        regexp: {{item.regexp}}
+        line: {{item.line}}
+      with_items:
+      - { regexp: '^Server=' , line: 'Server={{host_ip["stdout"]}}' }
+      - { regexp: '^ServerActive=' , line: 'ServerActive={{host_ip["stdout"]}}' }
+      
+        
+        
+    #- name: change dbhost
+    #  lineinfile:
+    #    dest: /etc/zabbix/zabbix_agentd.conf
+    #    regexp: '^Server='
+    #    line: 'Server={{host_ip["stdout"]}}'
     #
     #   
     #- name: start zabbix-agent
