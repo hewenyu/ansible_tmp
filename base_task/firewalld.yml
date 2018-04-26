@@ -1,0 +1,8 @@
+---
+# base_task/firewalld.yml
+
+ - name: remove firewalld
+   yum: pkg=firewalld state=removed  
+   
+# - name: start firewalld
+#   service: name=firewalld state=started enabled=yes

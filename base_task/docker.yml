@@ -1,0 +1,8 @@
+---
+# base_task/docker.yml
+
+ - name: Install docker
+   yum: pkg=docker state=installed  
+   
+ - name: start docker
+   service: name=docker state=started enabled=yes
