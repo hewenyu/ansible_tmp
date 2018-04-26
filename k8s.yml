@@ -1,0 +1,90 @@
+---
+# 设置批量管理节点
+- hosts: k8s
+  # 远程访问的用户
+  remote_user: root
+  # 变量
+  vars:
+
+    # 配置文件目录
+    workdir: /root/test/
+    
+
+  tasks:
+    - name: Create local directory to work from
+      file: path={{workdir}} state=directory owner=root group=root mode=0751
+
+      
+    - include : base_task/docker.yml
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+#    - name: Create create_db.sh
+#      get_url: url={{item.url}} dest={{workdir}}
+#      with_items:
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/create_db.sh"}
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/zabbix/host.enable.json"}
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/zabbix/login.json"}
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/zabbix/host.getserver.json"}
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/zabbix/post_auth.sh"}
+#      - { url: "https://raw.githubusercontent.com/hewenyu/ansible_tmp/master/zabbix/post.sh"}
+#
+#    - name: install zabbix-repo
+#      command: rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm  creates=/etc/yum.repos.d/zabbix.repo warn=False
+#      
+#    - name: Install zabbix-server-mysql
+#      yum: pkg=zabbix-server-mysql state=installed
+#
+#    - name: Install zabbix-web-mysql
+#      yum: pkg=zabbix-web-mysql state=installed
+#
+#    - name: Install zabbix_get
+#      yum: pkg=zabbix-get state=installed
+#
+#    - name: Install zabbix-agent
+#      yum: pkg=zabbix-agent state=installed
+#
+#    - name: chage to Asia/Shanghai timezone
+#      ini_file:
+#        path: /etc/php.ini
+#        section: Date
+#        option: date.timezone
+#        value: Asia/Shanghai
+#
+#    - name: change dbhost
+#      lineinfile:
+#        dest: /etc/zabbix/zabbix_server.conf
+#        regexp: '^DBHost'
+#        insertafter: '^# DBHost='
+#        line: 'DBHost=localhost'
+# 
+#    - name: change dbpassword
+#      lineinfile:
+#        dest: /etc/zabbix/zabbix_server.conf
+#        regexp: '^DBPassword'
+#        insertafter: '^# DBPassword='
+#        line: 'DBPassword=zabbix'
+#       
+#    - name: start zabbix
+#      service: name={{item.name}} state=started enabled=yes
+#      with_items:
+#      - { name: "zabbix-server"}
+#      - { name: "httpd"}
+#      - { name: "zabbix-agent"}
+#
+#    - name: start httpd
+#      service: name=httpd state=started enabled=yes
+#
+#    
+#    
+#    - name: create database
+#      script: create_db.sh  chdir={{workdir}}  creates={{workdir}}/ready.hi
