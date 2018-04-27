@@ -8,6 +8,7 @@
 
     # 配置文件目录
     workdir: /root/test/
+    repodir: /etc/yum.repos.d/
     
 
   tasks:
@@ -17,16 +18,13 @@
     - include : base_task/firewalld.yml
     
     - include : base_task/docker.yml
+    
+    - name: swapoff
+      command: swapoff -a warn=False
       
+    - include : base_task/kube.yml
       
-      
-      
-      
-      
-      
-      
-      
-      
+    
       
       
 #    - name: Create create_db.sh

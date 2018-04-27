@@ -1,0 +1,16 @@
+---
+# base_task/kube.yml
+
+ - name: clone kubernetes repo
+   get_url: url=https://raw.githubusercontent.com/hewenyu/ansible_tmp/dev-k8s/k8s/kubernetes.repo  dest={{repodir}} 
+   
+   
+ - name: install kube
+   yum: name={{item}} state=installed
+   with_items:
+     - kubelet
+     - kubeadm
+     - kubectl
+
+ - name: start kubelet
+   service: name=kubelet state=started enabled=yes
