@@ -14,7 +14,8 @@
     - name: Create local directory to work from
       file: path={{workdir}} state=directory owner=root group=root mode=0751
 
-      
+    - include : base_task/firewalld.yml
+    
     - include : base_task/docker.yml
       
       
